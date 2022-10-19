@@ -2,7 +2,7 @@
 
 
 
-let maze;
+let mazeCopy, maze, maze1, maze2, maze3;
 let squares;
 let cells;
 let screenSize = 500;
@@ -14,14 +14,20 @@ let mazeSlider , enemySlider , viewCheckBox;
 let mazeSliderValue = 2 , enemySliderValue = 2;
 let enemypos = [0,0];
 let playerpos = [0,0];
-let maze1 = mazeGen.Generate(11);
-let maze2 = mazeGen.Generate(13);
-let maze3 = mazeGen.Generate(15);
+
 
 function setup() {
     //frameRate(20);
-
-    maze = pickmaze(mazecounter);
+    maze1 = new MazeGen(11)
+    maze2 = new MazeGen(13)
+    maze3 = new MazeGen(15)
+    console.table(maze1)
+    //console.warn('maze1')
+    console.table(maze2)
+    //console.warn('maze2')
+    console.table(maze3)
+    //console.warn('maze3')
+    maze = pickMaze(mazecounter);
     console.table(maze);
     squares = [];
     cells = maze.length;
@@ -30,7 +36,7 @@ function setup() {
     noStroke();
 
 
-    console.clear();
+    //console.clear();
 
     createCanvas(screenSize,screenSize);
     for( var row = 0; row < cells; row++){
@@ -62,9 +68,10 @@ function setup() {
 }
 
 function draw() {
-    //console.log(limitedview , viewCheckBox.checked() );
-    //console.log(gamestatus , mazecounter , mazeSlider.value());
-    if(gamestatus == 'game'){
+    let count = 0;
+    console.log(count)
+    count++
+    if(gamestatus === 'game'){
 
         if(mazecounter > mazeSlider.value()){
             gamestatus = 'menu';
@@ -73,14 +80,12 @@ function draw() {
 
         mazeSlider.hide();
         enemySlider.hide();
-        maze = pickmaze(mazecounter);
+        maze = pickMaze(mazecounter);
 
 
 
         background(220);
-        for(var i = 0; i < squares.length; i++){
-            squares[i].display();
-        }
+
 
 
 
@@ -91,7 +96,7 @@ function draw() {
         p.finishedMaze();
 
 
-
+        console.log(maze);
 
         maze = swap(maze, cells);
         playerpos[0] = Math.round(p.y / size)
@@ -100,23 +105,32 @@ function draw() {
         enemypos[0] = Math.round(e.y / size)
         enemypos[1] = Math.round(e.x / size)
 
-        //var mazeCopy = maze.slice()
-        mazeCopy = swap(maze, cells);
-        var path = e.DPS(enemypos , playerpos, mazeCopy)
+        let mazeCopy = maze.slice()
+        mazeCopy = swap(mazeCopy, cells);
+        let path = e.DPS(enemypos , playerpos, maze)
         //console.log(JSON.stringify(path));
-        maze = pickmaze(mazecounter)
+        maze = pickMaze(mazecounter);
 
         /*for(var i = 0 ; i < path.length; i ++){
           circle((path[i][1])*size  + size/2 , path[i][0]*size   + size/2 , 10);
         }
         */
         e.enemymove(path)
-        //e.walldetection();
+        e.walldetection();
         e.edgedetection();
         e.display();
 
+        console.table(maze)
+        console.log(mazecounter);
+
+
+
+        for(var i = 0; i < squares.length; i++){
+            squares[i].display();
+        }
+        noLoop();
     }
-    else if(gamestatus == 'menu'){
+    else if(gamestatus === 'menu'){
         mazecounter = 1;
         mazeSlider.hide();
         enemySlider.hide();
@@ -127,7 +141,7 @@ function draw() {
         options.display();
         options.click();
     }
-    else if(gamestatus == 'options'){
+    else if(gamestatus === 'options'){
         background(220);
         textStyle(NORMAL);
 
@@ -157,17 +171,19 @@ function draw() {
 
 
 }
-function pickmaze(mazecounter){
+function pickMaze(mazecounter){
     let maze;
-    if(mazecounter == 1){
+
+
+    if(mazecounter === 1){
         maze = maze1;
         return maze;
     }
-    if(mazecounter == 2){
+    if(mazecounter === 2){
         maze = maze2
         return maze;
     }
-    if(mazecounter == 3){
+    if(mazecounter === 3){
         maze = maze3
         return maze;
     }
@@ -199,6 +215,9 @@ function swap(maze , cells){
     }
     return maze;
 }
+
+
+
 
 
 

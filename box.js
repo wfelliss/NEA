@@ -9,19 +9,19 @@ class box {
 
     display() {
 
-        if (maze[this.col][this.row] == 1) {
+        if (maze[this.col][this.row] === 1) {
             noStroke();
             fill(230);
         }
 
-        if (maze[this.col][this.row] == 0) {
+        if (maze[this.col][this.row] === 0) {
 
             fill(100);
         }
-        if (maze[this.col][this.row] == 2) {
+        if (maze[this.col][this.row] === 2) {
             fill('rgba(0,255,0, 0.25)');
         }
-        if (maze[this.col][this.row] == 3) {
+        if (maze[this.col][this.row] === 3) {
             fill('rgba(255,0,0, 0.25)');
         }
 
@@ -31,7 +31,7 @@ class box {
             let ypos;
             xpos = Math.round(p.y / size);
             ypos = Math.round(p.x / size);
-            //console.log(xpos , this.col)
+
             if(this.col > xpos + 3 || this.col < xpos - 3){
                 fill(10);
             }

@@ -35,7 +35,7 @@ class enemy extends player{
 
     }
     DPS(position, end, maze) {
-        maze = pickmaze(mazecounter);
+        maze = pickMaze(mazecounter);
         maze = swap(maze , cells);
         var queue = [];
 
