@@ -2,7 +2,7 @@
 
 
 
-let maze , maze1 , maze2, maze3;
+let maze;
 let squares;
 let cells;
 let screenSize = 500;
@@ -14,13 +14,15 @@ let mazeSlider , enemySlider , viewCheckBox;
 let mazeSliderValue = 2 , enemySliderValue = 2;
 let enemypos = [0,0];
 let playerpos = [0,0];
+let maze1 = mazeGen.Generate(11);
+let maze2 = mazeGen.Generate(13);
+let maze3 = mazeGen.Generate(15);
 
 function setup() {
     //frameRate(20);
-    let maze1 = Generate(11);
-    let maze2 = Generate(13);
-    let maze3 = Generate(15);
+
     maze = pickmaze(mazecounter);
+    console.table(maze);
     squares = [];
     cells = maze.length;
     size = (screenSize/cells);
