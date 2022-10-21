@@ -2,74 +2,79 @@
 
 
 
-let mazeCopy, maze, maze1, maze2, maze3;
+let maze, maze1, maze2, maze3;
 let squares;
 let cells;
 let screenSize = 500;
 let size;
 let mazecounter = 1;
 let limitedview = false;
-let gamestatus = 'menu';
+let gamestatus = 'game';
 let mazeSlider , enemySlider , viewCheckBox;
 let mazeSliderValue = 2 , enemySliderValue = 2;
 
 
 
 function setup() {
-    //frameRate(20);
+    //generate all the mazes
     maze1 = new MazeGen(11)
     maze2 = new MazeGen(13)
     maze3 = new MazeGen(15)
-    //console.table(maze1.maze)
-    //console.warn('maze1')
-    //console.table(maze2.maze)
-    //console.warn('maze2')
-    //console.table(maze3.maze)
-    //console.warn('maze3')
+
+    // set the current maze to one of the regenerated mazes
     maze = pickMaze(mazecounter);
-    //console.table(maze);
+
     squares = [];
     cells = maze.length;
     size = (screenSize/cells);
-    //maze = swap(maze, cells);
+
     noStroke();
 
 
-    //console.clear();
+
 
     createCanvas(screenSize,screenSize);
-    for( var row = 0; row < cells; row++){
-        for( var col = 0; col < cells; col++){
-            b = new box(row, col);
+
+    //create all the boxes for the pixel array to display the mazes and push them into an array called squares
+    for(let row = 0; row < cells; row++){
+        for(let col = 0; col < cells; col++){
+            let b = new box(row, col);
 
             squares.push(b);
         }
     }
-    background(150);
+
+    //generate the player and the enemies
     p = new player();
     p.playersconstuctor();
     e = new enemy();
     e.playersconstuctor();
 
+
+    //create the button objects with all the data they need
     let bwidth = 200;
     let bheight = 50;
-    play = new Button(screenSize/2 - bwidth/2,screenSize/3 - bheight, bwidth , bheight,'play');
-    options = new Button(screenSize/2 - bwidth/2,2*screenSize / 3  -bheight, bwidth , bheight, 'options');
-    menu = new Button(10, screenSize - 60, 100, 40,  'menu');
+    let play = new Button(screenSize/2 - bwidth/2,screenSize/3 - bheight, bwidth , bheight,'play');
+    let options = new Button(screenSize/2 - bwidth/2,2*screenSize / 3  -bheight, bwidth , bheight, 'options');
+    let menu = new Button(10, screenSize - 60, 100, 40,  'menu');
 
+
+    //create the sliders & check box for the options screen and hide them as not on options screen as default when launched
     mazeSlider = createSlider(1,5,mazeSliderValue);
     mazeSlider.hide();
     enemySlider = createSlider(0,3,enemySliderValue);
     enemySlider.hide();
     viewCheckBox = createCheckbox('Limited View', limitedview);
     viewCheckBox.hide();
-    //console.clear();
+
 }
 
 function draw() {
 
     if(gamestatus === 'game'){
+        background(220);
 
+        //if current level is > than the amount of levels selected in the options menu then go back to menu
         if(mazecounter > mazeSlider.value()){
             gamestatus = 'menu';
             mazeSliderValue = 3;
@@ -82,8 +87,8 @@ function draw() {
         for(let i = 0; i < squares.length; i++){
             squares[i].display();
         }
+        console.table(maze)
 
-        background(220);
 
 
 
@@ -109,7 +114,7 @@ function draw() {
         e.display();
 
 
-        noLoop(0)
+        noLoop()
     }
     else if(gamestatus === 'menu'){
         mazecounter = 1;

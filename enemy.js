@@ -46,9 +46,8 @@ class enemy extends player{
         this.enemypos[1] = Math.round(this.x / size)
 
 
-
-
-
+        maze = pickMaze(mazecounter)
+        console.table(maze)
         this.CurrentMaze = swap(pickMaze(mazecounter) , cells);
         let queue = [];
 
@@ -56,7 +55,7 @@ class enemy extends player{
         queue.push([this.enemypos]); // store a path, not just a position
 
         while (queue.length > 0) {
-            console.table(maze1.maze);
+            //console.table(this.CurrentMaze)
             var path = queue.shift(); // get the path out of the queue
             var pos = path[path.length-1]; // ... and then the last position from it
             var direction = [
