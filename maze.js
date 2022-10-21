@@ -166,7 +166,7 @@ class MazeGen {
         for(let i = 0; i < this.breaks; i++) {
             this.breakFound = false
             this.counter = 0
-            while (!this.breakFound && this.counter < 10) {
+            while (!this.breakFound || this.counter < 10) {
                 this.counter++
                 this.breakX = Math.floor(Math.random() * (this.maze.length - 3)) + 1
 

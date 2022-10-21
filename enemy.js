@@ -35,8 +35,8 @@ class enemy extends player{
 
     }
     DPS() {
-        this.playerpos = [0,0]
-        this.enemypos = [0,0]
+        this.playerpos = [0, 0]
+        this.enemypos = [0, 0]
         this.CurrentMaze = [0][0]
 
         this.playerpos[0] = Math.round(p.y / size)
@@ -46,26 +46,30 @@ class enemy extends player{
         this.enemypos[1] = Math.round(this.x / size)
 
 
-        maze = pickMaze(mazecounter)
-        console.table(maze)
-        this.CurrentMaze = swap(pickMaze(mazecounter) , cells);
+        this.CurrentMaze = pickMaze(mazecounter)
+        console.table(this.CurrentMaze)
+
+
+
+        this.CurrentMaze = this.Swap()
+        console.table(this.CurrentMaze)
         let queue = [];
 
         this.CurrentMaze[this.enemypos[0]][this.enemypos[1]] = 1;
         queue.push([this.enemypos]); // store a path, not just a position
-
+        console.table(maze1.maze)
         while (queue.length > 0) {
             //console.table(this.CurrentMaze)
-            var path = queue.shift(); // get the path out of the queue
-            var pos = path[path.length-1]; // ... and then the last position from it
-            var direction = [
+            let path = queue.shift(); // get the path out of the queue
+            let pos = path[path.length - 1]; // ... and then the last position from it
+            let direction = [
                 [pos[0] + 1, pos[1]],
                 [pos[0], pos[1] + 1],
                 [pos[0] - 1, pos[1]],
                 [pos[0], pos[1] - 1]
             ];
 
-            for (var i = 0; i < direction.length; i++) {
+            for (let i = 0; i < direction.length; i++) {
                 // Perform this check first:
                 if (direction[i][0] === this.playerpos[0] && direction[i][1] === this.playerpos[1]) {
                     // return the path that led to the find
@@ -84,7 +88,33 @@ class enemy extends player{
                 queue.push(path.concat([direction[i]]));
             }
         }
-
     }
+    Swap(){
+        for(var i =0 ; i < cells ; i++){
+            for(var j =0 ; j < cells ; j++){
+                if(this.CurrentMaze[i][j] === 0){
+                    this.CurrentMaze[i][j] = 6;
+                }
+            }
+        }
+
+        for(var i =0 ; i < cells ; i++){
+            for(var j =0 ; j < cells ; j++){
+                if(this.CurrentMaze[i][j] === 1){
+                    this.CurrentMaze[i][j] = 0;
+                }
+            }
+        }
+
+        for(var i =0 ; i < cells ; i++){
+            for(var j =0 ; j < cells ; j++){
+                if(this.CurrentMaze[i][j] === 6){
+                    this.CurrentMaze[i][j] = 1;
+                }
+            }
+        }
+        return this.CurrentMaze;
+    }
+
 
 }

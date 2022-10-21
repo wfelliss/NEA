@@ -88,6 +88,7 @@ function draw() {
             squares[i].display();
         }
         console.table(maze)
+        console.table(maze1.maze)
 
 
 
@@ -176,32 +177,7 @@ function pickMaze(){
     return maze;
 }
 
-function swap(maze , cells){
-    for(var i =0 ; i < cells ; i++){
-        for(var j =0 ; j < cells ; j++){
-            if(maze[i][j] === 0){
-                maze[i][j] = 6;
-            }
-        }
-    }
 
-    for(var i =0 ; i < cells ; i++){
-        for(var j =0 ; j < cells ; j++){
-            if(maze[i][j] === 1){
-                maze[i][j] = 0;
-            }
-        }
-    }
-
-    for(var i =0 ; i < cells ; i++){
-        for(var j =0 ; j < cells ; j++){
-            if(maze[i][j] === 6){
-                maze[i][j] = 1;
-            }
-        }
-    }
-    return maze;
-}
 
 
 
