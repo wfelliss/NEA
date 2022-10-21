@@ -12,8 +12,7 @@ let limitedview = false;
 let gamestatus = 'menu';
 let mazeSlider , enemySlider , viewCheckBox;
 let mazeSliderValue = 2 , enemySliderValue = 2;
-let enemypos = [0,0];
-let playerpos = [0,0];
+
 
 
 function setup() {
@@ -21,11 +20,11 @@ function setup() {
     maze1 = new MazeGen(11)
     maze2 = new MazeGen(13)
     maze3 = new MazeGen(15)
-    console.table(maze1)
+    console.table(maze1.maze)
     //console.warn('maze1')
-    console.table(maze2)
+    //console.table(maze2.maze)
     //console.warn('maze2')
-    console.table(maze3)
+    //console.table(maze3.maze)
     //console.warn('maze3')
     maze = pickMaze(mazecounter);
     console.table(maze);
@@ -64,13 +63,11 @@ function setup() {
     enemySlider.hide();
     viewCheckBox = createCheckbox('Limited View', limitedview);
     viewCheckBox.hide();
-    console.clear();
+    //console.clear();
 }
 
 function draw() {
-    let count = 0;
-    console.log(count)
-    count++
+
     if(gamestatus === 'game'){
 
         if(mazecounter > mazeSlider.value()){
@@ -81,8 +78,10 @@ function draw() {
         mazeSlider.hide();
         enemySlider.hide();
         maze = pickMaze(mazecounter);
-
-
+        console.table(maze);
+        for(let i = 0; i < squares.length; i++){
+            squares[i].display();
+        }
 
         background(220);
 
@@ -95,21 +94,9 @@ function draw() {
         p.display();
         p.finishedMaze();
 
+        let path = e.DPS()
 
-        console.log(maze);
 
-        maze = swap(maze, cells);
-        playerpos[0] = Math.round(p.y / size)
-        playerpos[1] = Math.round(p.x / size)
-
-        enemypos[0] = Math.round(e.y / size)
-        enemypos[1] = Math.round(e.x / size)
-
-        let mazeCopy = maze.slice()
-        mazeCopy = swap(mazeCopy, cells);
-        let path = e.DPS(enemypos , playerpos, maze)
-        //console.log(JSON.stringify(path));
-        maze = pickMaze(mazecounter);
 
         /*for(var i = 0 ; i < path.length; i ++){
           circle((path[i][1])*size  + size/2 , path[i][0]*size   + size/2 , 10);
@@ -120,15 +107,8 @@ function draw() {
         e.edgedetection();
         e.display();
 
-        console.table(maze)
-        console.log(mazecounter);
 
 
-
-        for(var i = 0; i < squares.length; i++){
-            squares[i].display();
-        }
-        noLoop();
     }
     else if(gamestatus === 'menu'){
         mazecounter = 1;
@@ -171,28 +151,29 @@ function draw() {
 
 
 }
-function pickMaze(mazecounter){
-    let maze;
+function pickMaze(){
+    let maze
 
 
     if(mazecounter === 1){
-        maze = maze1;
-        return maze;
+        maze = maze1.maze;
+
     }
     if(mazecounter === 2){
-        maze = maze2
-        return maze;
+        maze = maze2.maze
+
     }
     if(mazecounter === 3){
-        maze = maze3
-        return maze;
+        maze = maze3.maze
+
     }
+    return maze;
 }
 
 function swap(maze , cells){
     for(var i =0 ; i < cells ; i++){
         for(var j =0 ; j < cells ; j++){
-            if(maze[i][j] == 0){
+            if(maze[i][j] === 0){
                 maze[i][j] = 6;
             }
         }
@@ -200,7 +181,7 @@ function swap(maze , cells){
 
     for(var i =0 ; i < cells ; i++){
         for(var j =0 ; j < cells ; j++){
-            if(maze[i][j] == 1){
+            if(maze[i][j] === 1){
                 maze[i][j] = 0;
             }
         }
@@ -208,7 +189,7 @@ function swap(maze , cells){
 
     for(var i =0 ; i < cells ; i++){
         for(var j =0 ; j < cells ; j++){
-            if(maze[i][j] == 6){
+            if(maze[i][j] === 6){
                 maze[i][j] = 1;
             }
         }

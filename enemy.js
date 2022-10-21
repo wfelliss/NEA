@@ -34,13 +34,26 @@ class enemy extends player{
 
 
     }
-    DPS(position, end, maze) {
-        maze = pickMaze(mazecounter);
-        maze = swap(maze , cells);
-        var queue = [];
+    DPS() {
+        this.playerpos = [0,0]
+        this.enemypos = [0,0]
 
-        maze[position[0]][position[1]] = 1;
-        queue.push([position]); // store a path, not just a position
+        this.playerpos[0] = Math.round(p.y / size)
+        this.playerpos[1] = Math.round(p.x / size)
+
+        this.enemypos[0] = Math.round(this.y / size)
+        this.enemypos[1] = Math.round(this.x / size)
+
+
+
+
+        this.maze = pickMaze(mazecounter);
+        this.maze = swap(maze , cells);
+
+        let queue = [];
+
+        this.maze[this.enemypos[0]][this.enemypos[1]] = 1;
+        queue.push([this.enemypos]); // store a path, not just a position
 
         while (queue.length > 0) {
             var path = queue.shift(); // get the path out of the queue
@@ -54,18 +67,18 @@ class enemy extends player{
 
             for (var i = 0; i < direction.length; i++) {
                 // Perform this check first:
-                if (direction[i][0] == end[0] && direction[i][1] == end[1]) {
+                if (direction[i][0] === this.playerpos[0] && direction[i][1] === this.playerpos[1]) {
                     // return the path that led to the find
-                    return path.concat([end]);
+                    return path.concat([this.playerpos]);
                 }
 
-                if (direction[i][0] < 0 || direction[i][0] >= maze.length
-                    || direction[i][1] < 0 || direction[i][1] >= maze[0].length
-                    || maze[direction[i][0]][direction[i][1]] != 0) {
+                if (direction[i][0] < 0 || direction[i][0] >= this.maze.length
+                    || direction[i][1] < 0 || direction[i][1] >= this.maze[0].length
+                    || this.maze[direction[i][0]][direction[i][1]] !== 0) {
                     continue;
                 }
 
-                maze[direction[i][0]][direction[i][1]] = 1;
+                this.maze[direction[i][0]][direction[i][1]] = 1;
                 // extend and push the path on the queue
                 queue.push(path.concat([direction[i]]));
             }
