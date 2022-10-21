@@ -20,14 +20,14 @@ function setup() {
     maze1 = new MazeGen(11)
     maze2 = new MazeGen(13)
     maze3 = new MazeGen(15)
-    console.table(maze1.maze)
+    //console.table(maze1.maze)
     //console.warn('maze1')
     //console.table(maze2.maze)
     //console.warn('maze2')
     //console.table(maze3.maze)
     //console.warn('maze3')
     maze = pickMaze(mazecounter);
-    console.table(maze);
+    //console.table(maze);
     squares = [];
     cells = maze.length;
     size = (screenSize/cells);
@@ -78,7 +78,7 @@ function draw() {
         mazeSlider.hide();
         enemySlider.hide();
         maze = pickMaze(mazecounter);
-        console.table(maze);
+        //console.table(maze);
         for(let i = 0; i < squares.length; i++){
             squares[i].display();
         }
@@ -94,8 +94,9 @@ function draw() {
         p.display();
         p.finishedMaze();
 
+        console.table(maze)
         let path = e.DPS()
-
+        console.table(maze)
 
 
         /*for(var i = 0 ; i < path.length; i ++){
@@ -108,7 +109,7 @@ function draw() {
         e.display();
 
 
-
+        noLoop(0)
     }
     else if(gamestatus === 'menu'){
         mazecounter = 1;

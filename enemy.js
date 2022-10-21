@@ -37,6 +37,7 @@ class enemy extends player{
     DPS() {
         this.playerpos = [0,0]
         this.enemypos = [0,0]
+        this.CurrentMaze = [0][0]
 
         this.playerpos[0] = Math.round(p.y / size)
         this.playerpos[1] = Math.round(p.x / size)
@@ -47,15 +48,15 @@ class enemy extends player{
 
 
 
-        this.maze = pickMaze(mazecounter);
-        this.maze = swap(maze , cells);
 
+        this.CurrentMaze = swap(pickMaze(mazecounter) , cells);
         let queue = [];
 
-        this.maze[this.enemypos[0]][this.enemypos[1]] = 1;
+        this.CurrentMaze[this.enemypos[0]][this.enemypos[1]] = 1;
         queue.push([this.enemypos]); // store a path, not just a position
 
         while (queue.length > 0) {
+            console.table(maze1.maze);
             var path = queue.shift(); // get the path out of the queue
             var pos = path[path.length-1]; // ... and then the last position from it
             var direction = [
@@ -69,20 +70,22 @@ class enemy extends player{
                 // Perform this check first:
                 if (direction[i][0] === this.playerpos[0] && direction[i][1] === this.playerpos[1]) {
                     // return the path that led to the find
+
                     return path.concat([this.playerpos]);
                 }
 
-                if (direction[i][0] < 0 || direction[i][0] >= this.maze.length
-                    || direction[i][1] < 0 || direction[i][1] >= this.maze[0].length
-                    || this.maze[direction[i][0]][direction[i][1]] !== 0) {
+                if (direction[i][0] < 0 || direction[i][0] >= this.CurrentMaze.length
+                    || direction[i][1] < 0 || direction[i][1] >= this.CurrentMaze[0].length
+                    || this.CurrentMaze[direction[i][0]][direction[i][1]] !== 0) {
                     continue;
                 }
 
-                this.maze[direction[i][0]][direction[i][1]] = 1;
+                this.CurrentMaze[direction[i][0]][direction[i][1]] = 1;
                 // extend and push the path on the queue
                 queue.push(path.concat([direction[i]]));
             }
         }
+
     }
 
 }
