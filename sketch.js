@@ -12,7 +12,7 @@ let limitedview = false;
 let gamestatus = 'game';
 let mazeSlider , enemySlider , viewCheckBox;
 let mazeSliderValue = 2 , enemySliderValue = 2;
-
+let counter = 0
 
 
 function setup() {
@@ -87,8 +87,8 @@ function draw() {
         for(let i = 0; i < squares.length; i++){
             squares[i].display();
         }
-        console.table(maze)
-        console.table(maze1.maze)
+        //console.table(maze)
+        //console.table(maze1.maze)
 
 
 
@@ -100,9 +100,9 @@ function draw() {
         p.display();
         p.finishedMaze();
 
-        console.table(maze)
+        //console.table(maze)
         let path = e.DPS()
-        console.table(maze)
+        //console.table(maze)
 
 
         /*for(var i = 0 ; i < path.length; i ++){
@@ -110,12 +110,12 @@ function draw() {
         }
         */
         e.enemymove(path)
-        e.walldetection();
+        //e.walldetection();
         e.edgedetection();
         e.display();
 
-
-        noLoop()
+        counter++
+        //if(counter > 50){noLoop()}
     }
     else if(gamestatus === 'menu'){
         mazecounter = 1;
@@ -159,24 +159,29 @@ function draw() {
 
 }
 function pickMaze(){
-    let maze
+    let maze = []
 
 
     if(mazecounter === 1){
-        maze = maze1.maze;
+        maze = maze1.maze.map(function(arr) {
+            return arr.slice();
+        });
 
     }
     if(mazecounter === 2){
-        maze = maze2.maze
+        maze = maze2.maze.map(function(arr) {
+            return arr.slice();
+        });
 
     }
     if(mazecounter === 3){
-        maze = maze3.maze
+        maze = maze3.maze.map(function(arr) {
+            return arr.slice();
+        });
 
     }
     return maze;
 }
-
 
 
 

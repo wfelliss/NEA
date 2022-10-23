@@ -47,17 +47,14 @@ class enemy extends player{
 
 
         this.CurrentMaze = pickMaze(mazecounter)
-        console.table(this.CurrentMaze)
-
-
-
+        //console.table(this.CurrentMaze)
         this.CurrentMaze = this.Swap()
-        console.table(this.CurrentMaze)
+        //console.table(this.CurrentMaze)
         let queue = [];
 
         this.CurrentMaze[this.enemypos[0]][this.enemypos[1]] = 1;
         queue.push([this.enemypos]); // store a path, not just a position
-        console.table(maze1.maze)
+        //console.table(maze1.maze)
         while (queue.length > 0) {
             //console.table(this.CurrentMaze)
             let path = queue.shift(); // get the path out of the queue
@@ -73,7 +70,7 @@ class enemy extends player{
                 // Perform this check first:
                 if (direction[i][0] === this.playerpos[0] && direction[i][1] === this.playerpos[1]) {
                     // return the path that led to the find
-
+                    //console.table(maze1.maze);
                     return path.concat([this.playerpos]);
                 }
 

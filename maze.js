@@ -201,4 +201,5 @@ class MazeGen {
         }
         return false
     }
+
 }
