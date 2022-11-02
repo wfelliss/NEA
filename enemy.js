@@ -6,7 +6,6 @@ class enemy extends player{
         this.direction = "+x";
         this.x = 7*size + size*0.25
         this.y = 7*size + size*0.25
-        this.enemysize = size/2;
         this.colour = ('#FF4222')
     }
 
