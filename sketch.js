@@ -102,6 +102,12 @@ function draw() {
         p.walldetection();
         p.edgedetection();
         p.display();
+
+        if((Math.round(p.x / size) === (maze.length-1))) {
+            mazecounter++
+
+            setup();
+        }
         //p.finishedMaze();
 
         //console.table(maze)

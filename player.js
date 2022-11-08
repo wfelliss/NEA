@@ -12,7 +12,7 @@ class player{
         if(this.x < 0){
             this.wallmove();
         }
-        if(this.x > screenSize){
+        if(this.x + this.playersize + 2> screenSize){
             this.wallmove();
         }
     }
