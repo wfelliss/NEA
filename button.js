@@ -8,9 +8,8 @@ class Button{
         this.w = w;
         this.h = h;
 
-        this.col = color(255, 255, 0);
-        this.hovering = false;
-        this.clicked = false;
+        this.col = color('#D3D3D3');
+
     }
     display(){
         fill(100);
@@ -20,15 +19,15 @@ class Button{
         }
         rect(this.x,this.y,this.w,this.h , (this.w/5),(this.w/5));
         textSize(32);
-        fill(255);
+        fill(this.col);
         //textAlign(CENTER);
-        if(this.name == 'menu'){
+        if(this.name === 'menu'){
             text(this.name,this.x + this.w/8 ,this.y + 2*this.h / 3);
         }
-        else if(this.name == 'options'){
+        else if(this.name === 'options'){
             text(this.name,this.x + this.w/4,this.y + 2*this.h / 3);
         }
-        else if(this.name == 'play'){
+        else if(this.name === 'play'){
             text(this.name,this.x + this.w/3,this.y + 2*this.h / 3);
         }
 

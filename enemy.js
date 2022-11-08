@@ -9,7 +9,7 @@ class enemy extends player{
         this.colour = ('#FF4222')
     }
 
-    enemymove(path, enemypos){
+    enemymove(path){
         //circle(this.x , this.y ,10)
         let nextY = (path[1][0] * size) + size/2;
         let nextX = path[1][1] * size + size/2;
@@ -33,7 +33,7 @@ class enemy extends player{
 
 
     }
-    DPS() {
+    BFS() {
         this.playerpos = [0, 0]
         this.enemypos = [0, 0]
         this.CurrentMaze = [0][0]
@@ -94,18 +94,18 @@ class enemy extends player{
             }
         }
 
-        for(var i =0 ; i < cells ; i++){
-            for(var j =0 ; j < cells ; j++){
-                if(this.CurrentMaze[i][j] === 1){
-                    this.CurrentMaze[i][j] = 0;
+        for(var k =0 ; k < cells ; k++){
+            for(var l =0 ; l < cells ; l++){
+                if(this.CurrentMaze[k][l] === 1){
+                    this.CurrentMaze[k][l] = 0;
                 }
             }
         }
 
-        for(var i =0 ; i < cells ; i++){
-            for(var j =0 ; j < cells ; j++){
-                if(this.CurrentMaze[i][j] === 6){
-                    this.CurrentMaze[i][j] = 1;
+        for(var m =0 ; m < cells ; m++){
+            for(var n =0 ; n < cells ; n++){
+                if(this.CurrentMaze[m][n] === 6){
+                    this.CurrentMaze[m][n] = 1;
                 }
             }
         }

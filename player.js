@@ -17,16 +17,16 @@ class player{
         }
     }
     wallmove(){
-        if(this.direction == "+x"){
+        if(this.direction === "+x"){
             this.x -= this.speed;
         }
-        if(this.direction == "-x"){
+        if(this.direction === "-x"){
             this.x += this.speed;
         }
-        if(this.direction == "+y"){
+        if(this.direction === "+y"){
             this.y -= this.speed;
         }
-        if(this.direction == "-y"){
+        if(this.direction === "-y"){
             this.y += this.speed;
         }
     }
@@ -39,28 +39,28 @@ class player{
         xbox = Math.round(this.y / size);
         ybox = Math.round(this.x / size);
 
-        if(maze[xbox][ybox] == 0){
+        if(maze[xbox][ybox] === 0){
             this.wallmove();
         }
         //top right
         xbox = Math.round((this.y - this.playersize)/ size);
         ybox = Math.round(this.x / size);
 
-        if(maze[xbox][ybox] == 0){
+        if(maze[xbox][ybox] === 0){
             this.wallmove();
         }
         //bottom left
         xbox = Math.round((this.y/ size));
         ybox = Math.round((this.x - this.playersize) / size);
 
-        if(maze[xbox][ybox] == 0){
+        if(maze[xbox][ybox] === 0){
             this.wallmove();
         }
         //top left
         xbox = Math.round((this.y - this.playersize)/ size);
         ybox = Math.round((this.x - this.playersize) / size);
 
-        if(maze[xbox][ybox] == 0){
+        if(maze[xbox][ybox] === 0){
             this.wallmove();
         }
 
@@ -71,7 +71,7 @@ class player{
         xpos = Math.round(this.x / size);
         ypos = Math.round(this.y / size);
 
-        if((xpos == (maze.length-1))){
+        if((xpos === (maze.length-1))){
             mazecounter++
 
             setup();
@@ -82,25 +82,25 @@ class player{
     move(){
 
         if (keyIsPressed) {
-            if (keyCode == RIGHT_ARROW) {
+            if (keyCode === RIGHT_ARROW) {
                 this.direction = "+x"
                 this.x +=this.speed;
                 return;
             }
-            if (keyCode == LEFT_ARROW) {
+            if (keyCode === LEFT_ARROW) {
                 this.direction = "-x"
                 this.x -= this.speed;
                 return;
             }
-            if (keyCode == UP_ARROW) {
+            if (keyCode === UP_ARROW) {
                 this.direction = "-y"
                 this.y -= this.speed;
                 return;
             }
-            if (keyCode == DOWN_ARROW) {
+            if (keyCode === DOWN_ARROW) {
                 this.direction = "+y"
                 this.y +=this.speed;
-                return;
+
             }
         }
     }

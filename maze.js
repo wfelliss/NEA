@@ -162,7 +162,7 @@ class MazeGen {
 
     MakeIntoGraph() {
 
-        this.breaks = this.size - 8;
+        this.breaks = this.size - 9;
         for(let i = 0; i < this.breaks; i++) {
             this.breakFound = false
             this.counter = 0

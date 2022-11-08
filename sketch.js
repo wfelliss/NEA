@@ -2,15 +2,17 @@
 
 
 
-let maze, maze1, maze2, maze3;
+let maze, maze1, maze2, maze3, maze4, maze5;
+let p,e;
 let squares;
 let cells;
 let screenSize = 500;
 let size;
 let mazecounter = 1;
 let limitedview = false;
-let gamestatus = 'game';
+let gamestatus = 'menu';
 let mazeSlider , enemySlider , viewCheckBox;
+let play, options, menu;
 let mazeSliderValue = 2 , enemySliderValue = 2;
 let counter = 0
 
@@ -20,6 +22,8 @@ function setup() {
     maze1 = new MazeGen(11)
     maze2 = new MazeGen(13)
     maze3 = new MazeGen(15)
+    maze4 = new MazeGen(17)
+    //maze5 = new MazeGen(19)
 
     // set the current maze to one of the regenerated mazes
     maze = pickMaze(mazecounter);
@@ -54,9 +58,9 @@ function setup() {
     //create the button objects with all the data they need
     let bwidth = 200;
     let bheight = 50;
-    let play = new Button(screenSize/2 - bwidth/2,screenSize/3 - bheight, bwidth , bheight,'play');
-    let options = new Button(screenSize/2 - bwidth/2,2*screenSize / 3  -bheight, bwidth , bheight, 'options');
-    let menu = new Button(10, screenSize - 60, 100, 40,  'menu');
+    play = new Button(screenSize/2 - bwidth/2,screenSize/3 - bheight, bwidth , bheight,'play');
+    options = new Button(screenSize/2 - bwidth/2,2*screenSize / 3  -bheight, bwidth , bheight, 'options');
+    menu = new Button(10, screenSize - 60, 100, 40,  'menu');
 
 
     //create the sliders & check box for the options screen and hide them as not on options screen as default when launched
@@ -98,10 +102,10 @@ function draw() {
         p.walldetection();
         p.edgedetection();
         p.display();
-        p.finishedMaze();
+        //p.finishedMaze();
 
         //console.table(maze)
-        let path = e.DPS()
+        let path = e.BFS()
         //console.table(maze)
 
 
@@ -109,8 +113,7 @@ function draw() {
           circle((path[i][1])*size  + size/2 , path[i][0]*size   + size/2 , 10);
         }
         */
-        e.enemymove(path)
-        //e.walldetection();
+        e.enemymove(path);
         e.edgedetection();
         e.display();
 
@@ -118,15 +121,17 @@ function draw() {
         //if(counter > 50){noLoop()}
     }
     else if(gamestatus === 'menu'){
+
         mazecounter = 1;
         mazeSlider.hide();
         enemySlider.hide();
         viewCheckBox.hide();
         background(220);
         play.display();
-        play.click()
+        play.click();
         options.display();
         options.click();
+
     }
     else if(gamestatus === 'options'){
         background(220);
@@ -176,6 +181,18 @@ function pickMaze(){
     }
     if(mazecounter === 3){
         maze = maze3.maze.map(function(arr) {
+            return arr.slice();
+        });
+
+    }
+    if(mazecounter === 4){
+        maze = maze4.maze.map(function(arr) {
+            return arr.slice();
+        });
+
+    }
+    if(mazecounter === 5){
+        maze = maze5.maze.map(function(arr) {
             return arr.slice();
         });
 
