@@ -33,8 +33,8 @@ class player{
 
 
     walldetection(){
-        let xbox = 0;
-        let ybox = 0;
+        let xbox;
+        let ybox;
         //bottom right
         xbox = Math.round(this.y / size);
         ybox = Math.round(this.x / size);
@@ -66,16 +66,13 @@ class player{
 
     }
     finishedMaze(){
-        let xpos;
-        let ypos;
-        xpos = Math.round(this.x / size);
-        ypos = Math.round(this.y / size);
 
-        if((xpos === (maze.length-1))){
+
+        if((Math.round(this.x / size) === (maze.length-1))){
             mazecounter++
 
             setup();
-            //return true;
+            return true;
         }
         else{ return false}
     }

@@ -2,7 +2,7 @@
 
 
 
-let maze, maze1, maze2, maze3, maze4, maze5;
+let maze, mazeGen;
 let p,e;
 let squares;
 let cells;
@@ -14,16 +14,14 @@ let gamestatus = 'menu';
 let mazeSlider , enemySlider , viewCheckBox;
 let play, options, menu;
 let mazeSliderValue = 2 , enemySliderValue = 2;
-let counter = 0
+let mazeSize = 11;
 
 
 function setup() {
-    //generate all the mazes
-    maze1 = new MazeGen(11)
-    maze2 = new MazeGen(13)
-    maze3 = new MazeGen(15)
-    maze4 = new MazeGen(17)
-    //maze5 = new MazeGen(19)
+    mazeGen = new MazeGen(mazeSize)
+
+
+
 
     // set the current maze to one of the regenerated mazes
     maze = pickMaze(mazecounter);
@@ -77,7 +75,6 @@ function draw() {
 
     if(gamestatus === 'game'){
         background(220);
-
         //if current level is > than the amount of levels selected in the options menu then go back to menu
         if(mazecounter > mazeSlider.value()){
             gamestatus = 'menu';
@@ -86,13 +83,11 @@ function draw() {
 
         mazeSlider.hide();
         enemySlider.hide();
-        maze = pickMaze(mazecounter);
-        //console.table(maze);
+
         for(let i = 0; i < squares.length; i++){
             squares[i].display();
         }
-        //console.table(maze)
-        //console.table(maze1.maze)
+
 
 
 
@@ -103,28 +98,18 @@ function draw() {
         p.edgedetection();
         p.display();
 
-        if((Math.round(p.x / size) === (maze.length-1))) {
-            mazecounter++
+        p.finishedMaze();
 
-            setup();
-        }
-        //p.finishedMaze();
-
-        //console.table(maze)
         let path = e.BFS()
-        //console.table(maze)
 
 
-        /*for(var i = 0 ; i < path.length; i ++){
-          circle((path[i][1])*size  + size/2 , path[i][0]*size   + size/2 , 10);
-        }
-        */
+
         e.enemymove(path);
         e.edgedetection();
         e.display();
 
-        counter++
-        //if(counter > 50){noLoop()}
+
+
     }
     else if(gamestatus === 'menu'){
 
@@ -171,38 +156,41 @@ function draw() {
 }
 function pickMaze(){
     let maze = []
-
-
-    if(mazecounter === 1){
-        maze = maze1.maze.map(function(arr) {
-            return arr.slice();
-        });
-
+    maze = mazeGen.maze.map(function(arr) {
+        return arr.slice();
     }
-    if(mazecounter === 2){
-        maze = maze2.maze.map(function(arr) {
-            return arr.slice();
-        });
+        /*
+        if(mazecounter === 1){
+            maze = maze1.maze.map(function(arr) {
+                return arr.slice();
+            });
 
-    }
-    if(mazecounter === 3){
-        maze = maze3.maze.map(function(arr) {
-            return arr.slice();
-        });
+        }
+        if(mazecounter === 2){
+            maze = maze2.maze.map(function(arr) {
+                return arr.slice();
+            });
 
-    }
-    if(mazecounter === 4){
-        maze = maze4.maze.map(function(arr) {
-            return arr.slice();
-        });
+        }
+        if(mazecounter === 3){
+            maze = maze3.maze.map(function(arr) {
+                return arr.slice();
+            });
 
-    }
-    if(mazecounter === 5){
-        maze = maze5.maze.map(function(arr) {
-            return arr.slice();
-        });
+        }
+        if(mazecounter === 4){
+            maze = maze4.maze.map(function(arr) {
+                return arr.slice();
+            });
 
-    }
+        }
+        if(mazecounter === 5){
+            maze = maze5.maze.map(function(arr) {
+                return arr.slice();
+            });
+
+        }*/
+
     return maze;
 }
 
