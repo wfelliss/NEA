@@ -46,6 +46,7 @@ class Button{
             }
             else if(this.name === 'menu'){
                 gamestatus = 'menu';
+                score = 0;
             }
         }
 

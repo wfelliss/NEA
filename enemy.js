@@ -3,9 +3,11 @@ class enemy extends player{
         super.playersconstuctor();
         //super(x);
         //super(y);
+
+        this.speed = (p.speed*(50 + mazecounter*10))/100
         this.direction = "+x";
-        this.x = 7*size + size*0.25
-        this.y = 7*size + size*0.25
+        this.x = ((Math.random() * cells-4 | 1)+4)*size + size*0.25
+        this.y = ((Math.random() * cells-4 | 1)+4)*size + size*0.25
         this.colour = ('#FF4222')
     }
 
@@ -14,20 +16,20 @@ class enemy extends player{
         let nextY = (path[1][0] * size) + size/2;
         let nextX = path[1][1] * size + size/2;
         if(this.x + p.playersize/2 < nextX){
-            this.x+= 1
+            this.x+= this.speed
             this.direction = "+x"
         }
         if(this.x + p.playersize/2 > nextX){
-            this.x-= 1
+            this.x-= this.speed
             this.direction = "-x"
         }
 
         if(this.y + p.playersize/2 < nextY){
-            this.y+= 1
+            this.y+= this.speed
             this.direction = "+y"
         }
         if(this.y + p.playersize/2 > nextY){
-            this.y-= 1
+            this.y-= this.speed
             this.direction = "-y"
         }
 
@@ -111,6 +113,20 @@ class enemy extends player{
         }
         return this.CurrentMaze;
     }
+    touchingPlayer(){
+        if(p.x < e.x + e.playersize &&
+            p.x + p.playersize > e.x &&
+            p.y < e.y + e.playersize &&
+            p.y + p.playersize > e.y){
 
+            this.x = 1*size + size*0.25
+            this.y = 1*size + size*0.25
+            p.lives --
+            if(p.lives < 0){
+                p.dead = true
+                gamestatus = 'endScreen'
+            }
+        }
+    }
 
 }

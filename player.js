@@ -6,6 +6,8 @@ class player{
         this.direction = "+x"
         this.speed = Math.round(size/15);
         this.colour = ('#FFFFFF')
+        this.lives = 3;
+        this.dead = false;
 
     }
     edgedetection(){
@@ -70,6 +72,7 @@ class player{
 
         if((Math.round(this.x / size) === (maze.length-1))){
             mazecounter++
+            mazeSize +=2
 
             setup();
             return true;

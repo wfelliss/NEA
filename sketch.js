@@ -6,7 +6,7 @@ let maze, mazeGen;
 let p,e;
 let squares;
 let cells;
-let screenSize = 500;
+let screenSize = 800;
 let size;
 let mazecounter = 1;
 let limitedview = false;
@@ -15,7 +15,7 @@ let mazeSlider , enemySlider , viewCheckBox;
 let play, options, menu;
 let mazeSliderValue = 2 , enemySliderValue = 2;
 let mazeSize = 11;
-
+let score = 0;
 
 function setup() {
     mazeGen = new MazeGen(mazeSize)
@@ -35,7 +35,7 @@ function setup() {
 
 
 
-    createCanvas(screenSize,screenSize);
+    createCanvas(screenSize,screenSize + 50);
 
     //create all the boxes for the pixel array to display the mazes and push them into an array called squares
     for(let row = 0; row < cells; row++){
@@ -77,7 +77,7 @@ function draw() {
         background(220);
         //if current level is > than the amount of levels selected in the options menu then go back to menu
         if(mazecounter > mazeSlider.value()){
-            gamestatus = 'menu';
+            gamestatus = 'endScreen';
             mazeSliderValue = 3;
         }
 
@@ -87,33 +87,37 @@ function draw() {
         for(let i = 0; i < squares.length; i++){
             squares[i].display();
         }
+        textSize(40);
+        fill('black');
+        stroke(255)
+        text('Lives: '+ p.lives , 15 , screenSize + 40)
+
+        text('Score: '+Math.round(score/10) , screenSize-300, screenSize+40)
 
 
 
-
-
-
+        score ++
         p.move();
         p.walldetection();
         p.edgedetection();
         p.display();
-
         p.finishedMaze();
 
+
+
         let path = e.BFS()
-
-
-
         e.enemymove(path);
+        e.touchingPlayer();
         e.edgedetection();
         e.display();
 
-
+        console.log(e.speed)
 
     }
     else if(gamestatus === 'menu'){
 
         mazecounter = 1;
+        mazeSize = 11;
         mazeSlider.hide();
         enemySlider.hide();
         viewCheckBox.hide();
@@ -151,46 +155,29 @@ function draw() {
 
 
     }
+    else if(gamestatus==='endScreen'){
+        background(155);
 
+        textSize(40);
+        fill('black');
+        stroke(255);
+        if(!p.dead){
+            text('You Scored: '+Math.round(score/10)+' Well Done', 100,100)
+        }
+        else if(p.dead){
+            text('You are dead, Try again', 100,100)
+        }
+
+        menu.display();
+        menu.click();
+    }
 
 }
 function pickMaze(){
     let maze = []
     maze = mazeGen.maze.map(function(arr) {
         return arr.slice();
-    }
-        /*
-        if(mazecounter === 1){
-            maze = maze1.maze.map(function(arr) {
-                return arr.slice();
-            });
-
-        }
-        if(mazecounter === 2){
-            maze = maze2.maze.map(function(arr) {
-                return arr.slice();
-            });
-
-        }
-        if(mazecounter === 3){
-            maze = maze3.maze.map(function(arr) {
-                return arr.slice();
-            });
-
-        }
-        if(mazecounter === 4){
-            maze = maze4.maze.map(function(arr) {
-                return arr.slice();
-            });
-
-        }
-        if(mazecounter === 5){
-            maze = maze5.maze.map(function(arr) {
-                return arr.slice();
-            });
-
-        }*/
-
+    });
     return maze;
 }
 
