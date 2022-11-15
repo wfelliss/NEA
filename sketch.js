@@ -6,7 +6,7 @@ let maze, mazeGen;
 let p,e;
 let squares;
 let cells;
-let screenSize = 800;
+let screenSize = 500;
 let size;
 let mazecounter = 1;
 let limitedview = false;
@@ -20,10 +20,6 @@ let score = 0;
 function setup() {
     mazeGen = new MazeGen(mazeSize)
 
-
-
-
-    // set the current maze to one of the regenerated mazes
     maze = pickMaze(mazecounter);
 
     squares = [];
@@ -158,7 +154,7 @@ function draw() {
     else if(gamestatus==='endScreen'){
         background(155);
 
-        textSize(40);
+        textSize(screenSize/20);
         fill('black');
         stroke(255);
         if(!p.dead){
@@ -174,17 +170,9 @@ function draw() {
 
 }
 function pickMaze(){
-    let maze = []
+    let maze;
     maze = mazeGen.maze.map(function(arr) {
         return arr.slice();
     });
     return maze;
 }
-
-
-
-
-
-
-
-

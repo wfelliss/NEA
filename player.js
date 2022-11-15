@@ -8,7 +8,6 @@ class player{
         this.colour = ('#FFFFFF')
         this.lives = 3;
         this.dead = false;
-
     }
     edgedetection(){
         if(this.x < 0){
