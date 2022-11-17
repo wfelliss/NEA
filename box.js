@@ -32,10 +32,10 @@ class box {
             xpos = Math.round(p.y / size);
             ypos = Math.round(p.x / size);
 
-            if(this.col > xpos + 3 || this.col < xpos - 3){
+            if(this.col > xpos + FOVview || this.col < xpos - FOVview){
                 fill(10);
             }
-            if(this.row > ypos + 3 || this.row < ypos - 3){
+            if(this.row > ypos + FOVview || this.row < ypos - FOVview){
                 fill(10);
             }
         }

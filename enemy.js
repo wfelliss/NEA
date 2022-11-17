@@ -4,7 +4,7 @@ class enemy extends player{
         //super(x);
         //super(y);
 
-        this.speed = (p.speed*(50 + mazecounter*10))/100
+        this.speed = (p.speed*((50 + mazecounter*10))/100)
         this.direction = "+x";
         this.x = ((Math.random() * cells-4 | 1)+4)*size + size*0.25
         this.y = ((Math.random() * cells-4 | 1)+4)*size + size*0.25
@@ -87,6 +87,9 @@ class enemy extends player{
             }
         }
     }
+
+
+    //Swaps all the 1's and 0's in the maze array in order for the BFS to work
     Swap(){
         for(var i =0 ; i < cells ; i++){
             for(var j =0 ; j < cells ; j++){
