@@ -180,11 +180,3 @@ function pickMaze(){
     });
     return maze;
 }
-
-
-
-
-
-
-
-
