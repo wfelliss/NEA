@@ -1,5 +1,6 @@
 let maze, mazeGen;
-let p, e;
+let p, e1, e2;
+let enemies = [];
 let squares;
 let cells;
 let screenSize = 800;
@@ -41,9 +42,15 @@ function setup() {
   //generate the player and the enemies
   p = new player();
   p.playersconstuctor();
-  e = new enemy();
-  e.playersconstuctor();
+  enemies = [];
+  //let enemies = [];
+  for (let i = 0; i < enemySliderValue; i++) {
+    e = new enemy();
+    e.playersconstuctor(Math.random(), Math.random());
+    enemies.push(e);
+  }
 
+  console.log(enemies);
   //create the button objects with all the data they need
   let bwidth = 200;
   let bheight = 50;
@@ -78,9 +85,8 @@ function draw() {
     //if current level is > than the amount of levels selected in the options menu then go back to menu
     if (mazecounter > mazeSlider.value()) {
       gamestatus = "endScreen";
-      mazeSliderValue = 3;
     }
-    console.log(e.speed);
+
     mazeSlider.hide();
     enemySlider.hide();
 
@@ -101,11 +107,16 @@ function draw() {
     p.display();
     p.finishedMaze();
 
-    let path = e.BFS();
-    e.enemymove(path);
-    e.touchingPlayer();
-    e.edgedetection();
-    e.display();
+    enemies.forEach((enemy) => {
+      enemy.enemymove();
+      enemy.touchingPlayer();
+      enemy.edgedetection();
+      enemy.display();
+    });
+
+    //
+    //
+    //
   } else if (gamestatus === "menu") {
     mazecounter = 1;
     mazeSize = 11;
