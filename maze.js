@@ -180,7 +180,6 @@ class MazeGen {
                     this.maze[this.breakX][this.breakY] = 1
                     this.breakFound = true
                 }
-                //else{i--};
             }
 
 
